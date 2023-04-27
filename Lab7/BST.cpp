@@ -113,15 +113,20 @@ struct node *deleteNode(struct node *root, int key) {
 
     // Case 4.1 : The root has no child nodes
     if (root->left == nullptr && root->right == nullptr) {
-      // In this case, return the nullptr
+      // In this case, free the root and return the nullptr
+      free(root);
       return nullptr;
       
     // Case 4.2 : The root has only one child
-    // In that case return the child node that exists
+    // In that case return the child node that exists and free the root from memory
     } else if (root->left == nullptr) {
-      return root->right;
+      node *temp = root->right;
+      free(root);
+      return temp;
     } else if (root->right == nullptr) {
-      return root->left;
+      node *temp = root->left;
+      free(root);
+      return temp;
 
     // Case 4.3 : The root has both left and right child nodes
     } else {
